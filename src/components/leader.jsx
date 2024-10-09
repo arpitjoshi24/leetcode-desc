@@ -17,10 +17,10 @@ export default function Leaderboard() {
     const fetchData = async () => {
       try {
         setLoading(true);
-      
         const response = await axios.get('fetch_allprofile', {
-          baseURL: 'http://172.16.10.141:8080/', // Set the base URL here
+          baseURL: 'https://leetcode-repo.onrender.com/',
         });
+        console.log(response.data); // Log API response to inspect the structure
         setData(response.data);
       } catch (error) {
         setError('Failed to fetch leaderboard data');
@@ -28,9 +28,10 @@ export default function Leaderboard() {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   // Handle search bar
   const handleSearchChange = (e) => {
@@ -127,7 +128,7 @@ export default function Leaderboard() {
 
         <section className={`border-2 my-6 md:mx-6 mx-2 border-black`}>
           <section className={`border-b-2 flex justify-around border-black bg-zinc-600`}>
-            {['SNO.', 'Name', 'Total', 'Easy', 'Medium', 'Hard', 'Mentor'].map((heading, index) => (
+            {['name', 'username', 'Total', 'Easy', 'Medium', 'Hard', 'Mentor'].map((heading, index) => (
               <div
                 key={index}
                 className={`w-full text-center border-l border-black `}
@@ -149,14 +150,14 @@ export default function Leaderboard() {
             `}>
               <div className='w-full text-center'>
                 <ul className='list-none'>
-                  <li className='md:py-4 md:text-base text-sm py-2'>{item.sno}</li>
+                  <li className='md:py-4 md:text-base text-sm py-2'>{item.name}</li>
                 </ul>
               </div>
               <div className={`w-full text-center border-l-2 border-black `}>
                 <ul className='list-none'>
                   <li className='md:py-4 py-2 md:text-base text-sm'>
-                    <Link to="/profile" state={{ name: item.name }} className={`hover:underline`}>
-                      {item.name}
+                    <Link to="/profile" state={{ name: item.username }} className={`hover:underline`}>
+                      {item.username}
                     </Link>
                   </li>
                 </ul>
