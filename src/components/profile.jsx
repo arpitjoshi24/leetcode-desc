@@ -174,35 +174,39 @@ export default function Profile() {
         </div>
 
         {/* Question Details */}
-        <div className='flex justify-center'>
+        <div className="flex justify-center">
   <div className="h-full w-full sm:w-[400px] md:w-[1200px] border-2 border-[rgba(75,30,133,0.5)] rounded-[1.5em] bg-gradient-to-br from-[rgba(75,30,133,1)] to-[rgba(75,30,133,0.2)] p-4 md:mx-12 mx-4">
-    <h4 className='text-center text-3xl text-white'>Types of Questions</h4>
-    <div className='my-4'>
-      <h5 className='text-lg text-gray-300'>Advanced Questions</h5>
-      <div className='flex flex-wrap justify-around gap-6 my-4 w-full'>
+    <h4 className="text-center text-3xl text-white">Types of Questions</h4>
+
+    <div className="my-4">
+      <h5 className="text-lg text-gray-300">Advanced Questions</h5>
+      <div className="flex flex-wrap justify-around gap-4 my-4 w-full">
         {Object.entries(advanceQuestions).map(([type, count]) => (
-          <p key={type} className='bg-gray-600 p-2 w-1/6 my-12 text-center'>{type}: {count}</p>
+          <p key={type} className="bg-gray-600 p-2 text-center w-[45%] sm:w-[30%] lg:w-[15%]">{type}: {count}</p>
         ))}
       </div>
     </div>
-    <div className='my-4'>
-      <h5 className='text-lg text-gray-300'>Fundamental Questions</h5>
-      <div className='flex flex-wrap justify-around gap-6 my-4 w-full '>
+
+    <div className="my-4">
+      <h5 className="text-lg text-gray-300">Fundamental Questions</h5>
+      <div className="flex flex-wrap justify-around gap-4 my-4 w-full">
         {Object.entries(fundamentalQuestions).map(([type, count]) => (
-          <p key={type} className='bg-gray-600 p-2 my-12 w-1/6 text-center'>{type}: {count}</p>
+          <p key={type} className="bg-gray-600 p-2 text-center w-[45%] sm:w-[30%] lg:w-[15%]">{type}: {count}</p>
         ))}
       </div>
     </div>
-    <div className='my-4'>
-      <h5 className='text-lg text-gray-300'>Intermediate Questions</h5>
-      <div className='flex flex-wrap justify-around gap-6 my-4 w-full'>
+
+    <div className="my-4">
+      <h5 className="text-lg text-gray-300">Intermediate Questions</h5>
+      <div className="flex flex-wrap justify-around gap-4 my-4 w-full">
         {Object.entries(intermediateQuestions).map(([type, count]) => (
-          <p key={type} className='bg-gray-600 p-2 w-1/6 my-12 text-center'>{type}: {count}</p>
+          <p key={type} className="bg-gray-600 p-2 text-center w-[45%] sm:w-[30%] lg:w-[15%]">{type}: {count}</p>
         ))}
       </div>
     </div>
   </div>
 </div>
+
 
       </section>
     </>
