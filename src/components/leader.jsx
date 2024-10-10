@@ -7,7 +7,7 @@ export default function Leaderboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]); // State to hold API data
+  const [data, setData] = useState([]);// State to hold API data
   const [loading, setLoading] = useState(true); // State to show loading
   const [error, setError] = useState(null); // State to show error message
   const itemsPerPage = 10; // Number of items per page
@@ -20,7 +20,7 @@ export default function Leaderboard() {
         const response = await axios.get('fetch_allprofile', {
           baseURL: 'https://leetcode-repo.onrender.com/',
         });
-        console.log(response.data); // Log API response to inspect the structure
+        // Log API response to inspect the structure
         setData(response.data);
       } catch (error) {
         setError('Failed to fetch leaderboard data');
@@ -32,7 +32,6 @@ export default function Leaderboard() {
     fetchData();
   }, []);
   
-
   // Handle search bar
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -106,7 +105,9 @@ export default function Leaderboard() {
     <>
       <header className='bg-zinc-600 border-black mt-0 px-4'>
         <div>
+        <Link to="/">
           <h3 className='py-4 text-xl text-white font-semibold'>Gehu Leetcode</h3>
+            </Link> 
         </div>
       </header>
       <section className='leader text-white py-6 bg-[#1F2120ff]'>
@@ -126,70 +127,41 @@ export default function Leaderboard() {
           </button>
         </div>
 
-        <section className={`border-2 my-6 md:mx-6 mx-2 border-black`}>
-          <section className={`border-b-2 flex justify-around border-black bg-zinc-600`}>
-            {['name', 'username', 'Total', 'Easy', 'Medium', 'Hard', 'Mentor'].map((heading, index) => (
-              <div
-                key={index}
-                className={`w-full text-center border-l border-black `}
-                onClick={heading !== 'SNO.' && heading !== 'Name' ? () => handleSort(heading.toLowerCase()) : undefined}
-              >
-                <h4 className='md:text-xl text-sm font-semibold py-4'>
-                  {heading} {renderArrow(heading.toLowerCase())}
-                </h4>
-              </div>
-            ))}
-          </section>
-
-          {/* Data rows (only show currentData based on pagination) */}
-          {currentData.map((item, index) => (
-            <section key={index} className={`
-              border-black
-              border-b flex justify-around
-              ${index % 2 === 0 ? 'bg-[#767877ff]' : 'bg-[#464747ff]'}
-            `}>
-              <div className='w-full text-center'>
-                <ul className='list-none'>
-                  <li className='md:py-4 md:text-base text-sm py-2'>{item.name}</li>
-                </ul>
-              </div>
-              <div className={`w-full text-center border-l-2 border-black `}>
-                <ul className='list-none'>
-                  <li className='md:py-4 py-2 md:text-base text-sm'>
-                    <Link to="/profile" state={{ name: item.username }} className={`hover:underline`}>
+        {/* Responsive Table */}
+        <div className="overflow-x-auto my-6 md:mx-6 mx-2 border-black">
+          <table className="min-w-full table-auto border-collapse border border-black">
+            <thead className="bg-zinc-600">
+              <tr>
+                {['Name', 'Username', 'Total', 'Easy', 'Medium', 'Hard', 'Mentor'].map((heading, index) => (
+                  <th
+                    key={index}
+                    className="border border-black md:text-xl text-sm font-semibold py-2 px-4 text-center cursor-pointer"
+                    onClick={heading !== 'SNO.' && heading !== 'Name' ? () => handleSort(heading.toLowerCase()) : undefined}
+                  >
+                    {heading} {renderArrow(heading.toLowerCase())}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {currentData.map((item, index) => (
+                <tr key={index} className={`${index % 2 === 0 ? 'bg-[#767877ff]' : 'bg-[#464747ff]'}`}>
+                  <td className="border border-black text-center py-2 px-4">{item.name}</td>
+                  <td className="border border-black text-center py-2 px-4">
+                    <Link to="/profile" state={{ name: item.username }} className="hover:underline">
                       {item.username}
                     </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className={`w-full text-center border-l-2 border-black `}>
-                <ul className='list-none'>
-                  <li className='md:py-4 py-2 md:text-base text-sm'>{item.total}</li>
-                </ul>
-              </div>
-              <div className={`w-full text-center border-l-2 border-black `}>
-                <ul className='list-none'>
-                  <li className='md:py-4 py-2 md:text-base text-sm text-green-500 font-extrabold' >{item.easy}</li>
-                </ul>
-              </div>
-              <div className={`w-full text-center border-l-2 border-black`}>
-                <ul className='list-none'>
-                  <li className='md:py-4 py-2 md:text-base text-sm text-yellow-500 font-extrabold'>{item.medium}</li>
-                </ul>
-              </div>
-              <div className={`w-full text-center border-l-2 border-black `}>
-                <ul className='list-none'>
-                  <li className='md:py-4 py-2 md:text-base text-sm text-red-500 font-extrabold'>{item.hard}</li>
-                </ul>
-              </div>
-              <div className={`w-full text-center border-l-2 border-black`}>
-                <ul className='list-none'>
-                  <li className='py-4 md:text-base text-sm'>{item.mentor}</li>
-                </ul>
-              </div>
-            </section>
-          ))}
-        </section>
+                  </td>
+                  <td className="border border-black text-center py-2 px-4">{item.total}</td>
+                  <td className="border border-black text-center py-2 px-4 text-green-500 font-extrabold">{item.easy}</td>
+                  <td className="border border-black text-center py-2 px-4 text-yellow-500 font-extrabold">{item.medium}</td>
+                  <td className="border border-black text-center py-2 px-4 text-red-500 font-extrabold">{item.hard}</td>
+                  <td className="border border-black text-center py-2 px-4">{item.mentor}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {/* Pagination controls */}
         <div className='flex justify-center py-4'>

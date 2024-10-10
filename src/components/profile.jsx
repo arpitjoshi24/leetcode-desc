@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Profile() {
@@ -17,15 +18,11 @@ export default function Profile() {
         setLoading(false);
         return;
       }
-
       try {
-        console.log('Fetching data...');
-        console.log(`https://leetcode-repo.onrender.com/fetch_profile?endpoint=${name}`)
         const response = await axios.get(`https://leetcode-repo.onrender.com/fetch_profile?endpoint=${name}`);
-        console.log(response.data); // Log the response to debug
+        console.log(response.data)
         setProfileData(response.data.data);
       } catch (error) {
-        console.error('Error fetching the profile data:', error?.response?.data || error.message);
         setError('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -53,39 +50,40 @@ export default function Profile() {
     <>
       <header className='bg-zinc-600 border-[#1F2120ff] mt-0 px-4'>
         <div>
+            <Link to="/">
           <h3 className='py-4 text-xl text-white font-semibold'>Gehu Leetcode</h3>
+            </Link>
         </div>
       </header>
       <section className='bg-black text-white py-6'>
         <h1 className='text-center text-4xl font-bold py-4'>Profile</h1>
-        <div className='md:flex mx-12 py-6 gap-32 justify-center'>
-          <div>
+        <div className='md:flex flex-col sm:flex-row mx-4 md:mx-12 py-6 gap-12 justify-center'>
+          <div className='flex justify-center'>
             <img
-              width={300}
-              height={300}
+              className='rounded-full object-cover w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64'
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
               alt="Profile"
             />
           </div>
-          <div className='space-y-2 mt-20'>
+          <div className='text-center sm:text-left space-y-4 mt-6 sm:mt-0'>
             <h2 className='text-2xl font-bold'>{name}</h2>
-            <p>Username: <a href={`https://leetcode.com/${username}`} target="_blank" rel="noopener noreferrer">{username}</a></p>
+            <p>Username: {username}</p>
             <p>Leetcode Rating: 1550/1567</p>
             <p>Software Engineer</p>
           </div>
         </div>
 
         {/* Leetcode Stats Section */}
-        <div className='md:flex space-y-6 md:space-y-0 mx-12 my-12 gap-32 justify-center'>
-          <div className="h-[16em] w-[18em] md:w-[24em] border-2 border-[rgba(75,30,133,0.5)] rounded-[1.5em] bg-gradient-to-br from-[rgba(75,30,133,1)] to-[rgba(75,30,133,0.2)] flex flex-col justify-center items-center">
+        <div className='grid sm:grid-cols-2 gap-6 mx-4 md:ml-[30rem] my-12'>
+          <div className="h-[16em] w-full sm:w-auto border-2 border-[rgba(75,30,133,0.5)] rounded-[1.5em] bg-gradient-to-br from-[rgba(75,30,133,1)] to-[rgba(75,30,133,0.2)] flex flex-col justify-center items-center">
             <h3 className='text-xl font-bold'>LeetCode Stats</h3>
-            <div className='flex mx-2 gap-16 my-12'>
-              <p className='bg-gray-600 p-2 w-32'>Total :  {total_qs}</p>
-              <p className='bg-green-600 p-2 w-32'> Easy : {easy_total_qs}</p>
+            <div className='flex justify-around my-8 w-full'>
+              <p className='bg-gray-600 p-2 w-32 text-center'>Total: {total_qs}</p>
+              <p className='bg-green-600 p-2 w-32 text-center'>Easy: {easy_total_qs}</p>
             </div>
-            <div className='flex mx-2 gap-16 '>
-              <p className='bg-yellow-600 p-2 w-32'>Medium : {medium_total_qs}</p>
-              <p className='bg-red-600 p-2 w-32 '>Hard : {hard_total_qs}</p>
+            <div className='flex justify-around w-full'>
+              <p className='bg-yellow-600 p-2 w-32 text-center'>Medium: {medium_total_qs}</p>
+              <p className='bg-red-600 p-2 w-32 text-center'>Hard: {hard_total_qs}</p>
             </div>
           </div>
         </div>
