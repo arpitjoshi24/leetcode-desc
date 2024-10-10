@@ -1,0 +1,19 @@
+body {
+    background-color: #1F2120;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+input, select {
+    transition: border-color 0.3s;
+}
+
+table {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
